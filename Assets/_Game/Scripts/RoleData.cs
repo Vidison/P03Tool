@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 using UnityEngine.AI;
+using Unity.VisualScripting;
 
 [CreateAssetMenu(fileName = "RoleData_", menuName = "UnitData/Role")]
 public class RoleData : MonoBehaviour
@@ -12,25 +13,28 @@ public class RoleData : MonoBehaviour
     [Header("General Status")]
     [SerializeField] private string _name;
     [SerializeField] private RoleType _roleType = RoleType.None;
-    [SerializeField] private Transform _roleToFollow;
-    [SerializeField] private Transform _roleFollower;
+    [SerializeField] private Transform _player;
+    [SerializeField] private Transform _enemy;
     [SerializeField][Range(0, 100)] private float _chanceToDropLoot;
     [SerializeField][Tooltip("How far monster can see")] private float _rangeOfAwareness;
 
-    public NavMeshAgent _follow;
-
+    
     [Header("Movement")]
     [SerializeField] private float _speed;
     [SerializeField] private float _rotationspeed;
+    public NavMeshAgent _follower;
 
+
+    [Header("Gunner")] 
+    public GameObject enemyBullet;
+    public Transform spawnPoint;
+    
+    [SerializeField] private float timer = 5;
+    private float bulletTime;
+    public float _shootspeed;
 
     [Header("Dialog")]
     [SerializeField][TextArea()] private string _approach;
-
-    private void Awake()
-    {
-
-    }
 
     private void Update()
     {
@@ -51,22 +55,61 @@ public class RoleData : MonoBehaviour
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotate, _rotationspeed * Time.deltaTime);
             }
         }
-        if (_roleType == RoleType.Enemy)
+        if (_roleType == RoleType.Lancer)
         {
-            float dist = Vector3.Distance(_roleToFollow.position, _roleFollower.position);
+            float dist = Vector3.Distance(_player.position, _enemy.position);
             Debug.Log("Distance to other: " + dist);
-            if (dist < _rangeOfAwareness + 5 && dist > _rangeOfAwareness)
+            if (dist < _rangeOfAwareness + 5 && dist > _rangeOfAwareness + 3)
             {
-                transform.LookAt(_roleToFollow);
-            } else if (dist < _rangeOfAwareness) {
-                _follow.SetDestination(_roleToFollow.position);
+                _follower.ResetPath();
+                transform.LookAt(_player);
+            } 
+            if (dist < _rangeOfAwareness) {
+                
+                _follower.SetDestination(_player.position);
+                
+               // transform.position = Vector3.MoveTowards(this.transform.position, _roleToFollow.position, _speed * Time.deltaTime);
             }
+            if (dist > _rangeOfAwareness + 5)
+            {
+                _follower.isStopped = true;
+               
+            }
+        }
+        if (_roleType == RoleType.Gunner)
+        {
+            float distGun = Vector3.Distance(_player.position, _enemy.position);
+            Debug.Log("Distance to other: Gunner " + distGun);
+            transform.LookAt(_player);
+            ShootAtPlayer();
 
+            //if (distGun < _rangeOfAwareness)
+            //{
+                //_follower.SetDestination(_player.position);
+                
+
+                // transform.position = Vector3.MoveTowards(this.transform.position, _roleToFollow.position, _speed * Time.deltaTime);
+           // }
             
-            //transform.position = Vector3.MoveTowards(this.transform.position, _roleToFollow.position, _speed * Time.deltaTime);
         }
     }
 
+    void ShootAtPlayer()
+    {
+        bulletTime -= Time.deltaTime;
+
+        if (bulletTime > 0) return;
+
+            bulletTime = timer;
+         
+            GameObject bulletObj = Instantiate(enemyBullet, spawnPoint.transform.position, spawnPoint.transform.rotation) as GameObject;
+            Rigidbody bulletRig = bulletObj.GetComponent<Rigidbody>();
+            bulletRig.AddForce(bulletRig.transform.forward * _shootspeed);
+            Destroy(bulletObj, 2);
+        
+    }
+
+    
     public string Name => _name;
     public RoleType RoleType => _roleType;
 }
