@@ -643,7 +643,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 539294981}
   timer: 1
   _shootSpeed: 0
-  _approach: FIRE!
+  approach: 
 --- !u!54 &972281545
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -722,7 +722,6 @@ GameObject:
   - component: {fileID: 1071201952}
   - component: {fileID: 1071201951}
   - component: {fileID: 1071201955}
-  - component: {fileID: 1071201953}
   - component: {fileID: 1071201954}
   - component: {fileID: 1071201956}
   m_Layer: 0
@@ -761,19 +760,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &1071201953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1071201950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14093064d6c721f439c80ebf23262ae7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: 52047924e4f722e429c4f2a6ba8b6ef5, type: 2}
 --- !u!114 &1071201954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -799,7 +785,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   timer: 5
   _shootSpeed: 0
-  _approach: HAULT!
+  approach: 
 --- !u!54 &1071201955
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1279,8 +1265,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1796966986}
   - component: {fileID: 1796966985}
-  - component: {fileID: 1796966984}
   - component: {fileID: 1796966987}
+  - component: {fileID: 1796966984}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1302,18 +1288,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Player
   _roleType: 1
-  _player: {fileID: 0}
-  _enemy: {fileID: 0}
+  _player: {fileID: 1796966986}
+  _enemy: {fileID: 972281547}
   _chanceToDropLoot: 0
   _rangeOfAwareness: 0
   _speed: 5
-  _rotationSpeed: 0
+  _rotationSpeed: 360
   _follower: {fileID: 0}
   enemyBullet: {fileID: 0}
   spawnPoint: {fileID: 0}
   timer: 5
   _shootSpeed: 0
-  _approach: 
+  approach: 
 --- !u!136 &1796966985
 CapsuleCollider:
   m_ObjectHideFlags: 0

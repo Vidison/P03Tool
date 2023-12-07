@@ -6,7 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 using UnityEngine.AI;
 using Unity.VisualScripting;
 
-
+[CreateAssetMenu(fileName = "RoleData_", menuName = "UnitData/Role")]
 public class RoleData : MonoBehaviour
 {
 
@@ -34,7 +34,7 @@ public class RoleData : MonoBehaviour
     public float _shootSpeed;
 
     [Header("Dialog")]
-    [SerializeField][TextArea()] private string _approach;
+    [SerializeField][TextArea()] private string approach;
 
     private void Update()
     {
@@ -67,8 +67,7 @@ public class RoleData : MonoBehaviour
             if (dist < _rangeOfAwareness) {
                 
                 _follower.SetDestination(_player.position);
-                
-               // transform.position = Vector3.MoveTowards(this.transform.position, _roleToFollow.position, _speed * Time.deltaTime);
+              
             }
             if (dist > _rangeOfAwareness + 5)
             {
@@ -86,10 +85,9 @@ public class RoleData : MonoBehaviour
 
             if (distGun < _rangeOfAwareness)
             {
-                //_follower.SetDestination(_player.position);
+          
                 ShootAtPlayer();
 
-                // transform.position = Vector3.MoveTowards(this.transform.position, _roleToFollow.position, _speed * Time.deltaTime);
             }
             
         }
