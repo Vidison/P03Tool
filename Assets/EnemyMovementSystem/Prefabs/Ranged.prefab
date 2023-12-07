@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 1543166068206521580}
   - component: {fileID: 1543166068206521575}
   m_Layer: 0
-  m_Name: Gunner
+  m_Name: Ranged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

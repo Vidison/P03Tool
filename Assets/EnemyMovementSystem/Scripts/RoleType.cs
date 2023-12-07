@@ -6,6 +6,6 @@ public enum RoleType
 {
     None = 0,
     Player,
-    Lancer,
-    Gunner
+    Melee,
+    Ranged
 }

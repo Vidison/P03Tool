@@ -6,7 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 using UnityEngine.AI;
 using Unity.VisualScripting;
 
-[CreateAssetMenu(fileName = "RoleData_", menuName = "UnitData/Role")]
+
 public class RoleData : MonoBehaviour
 {
 
@@ -25,7 +25,7 @@ public class RoleData : MonoBehaviour
     public NavMeshAgent _follower;
 
 
-    [Header("Gunner")] 
+    [Header("Ranged")] 
     public GameObject enemyBullet;
     public Transform spawnPoint;
     
@@ -55,7 +55,7 @@ public class RoleData : MonoBehaviour
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotate, _rotationSpeed * Time.deltaTime);
             }
         }
-        if (_roleType == RoleType.Lancer)
+        if (_roleType == RoleType.Melee)
         {
             float dist = Vector3.Distance(_player.position, _enemy.position);
             Debug.Log("Distance to other: " + dist);
@@ -75,11 +75,11 @@ public class RoleData : MonoBehaviour
                
             }
         }
-        if (_roleType == RoleType.Gunner)
+        if (_roleType == RoleType.Ranged)
         {
             
             float distGun = Vector3.Distance(_player.position, _enemy.position);
-            Debug.Log("Distance to other: Gunner " + distGun);
+            Debug.Log("Distance to other: Ranged " + distGun);
             transform.LookAt(_player);
             
 

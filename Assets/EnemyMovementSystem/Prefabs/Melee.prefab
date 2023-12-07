@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 5166252930950426497}
   - component: {fileID: 5166252930950426503}
   m_Layer: 0
-  m_Name: Lancer
+  m_Name: Melee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
