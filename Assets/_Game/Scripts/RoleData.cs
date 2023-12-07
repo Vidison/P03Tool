@@ -59,7 +59,7 @@ public class RoleData : MonoBehaviour
         {
             float dist = Vector3.Distance(_player.position, _enemy.position);
             Debug.Log("Distance to other: " + dist);
-            if (dist < _rangeOfAwareness + 5 && dist > _rangeOfAwareness + 3)
+            if (dist < _rangeOfAwareness + 5 && dist > _rangeOfAwareness + 0.5)
             {
                 _follower.ResetPath();
                 transform.LookAt(_player);
@@ -78,18 +78,19 @@ public class RoleData : MonoBehaviour
         }
         if (_roleType == RoleType.Gunner)
         {
+            
             float distGun = Vector3.Distance(_player.position, _enemy.position);
             Debug.Log("Distance to other: Gunner " + distGun);
             transform.LookAt(_player);
-            ShootAtPlayer();
+            
 
-            //if (distGun < _rangeOfAwareness)
-            //{
+            if (distGun < _rangeOfAwareness)
+            {
                 //_follower.SetDestination(_player.position);
-                
+                ShootAtPlayer();
 
                 // transform.position = Vector3.MoveTowards(this.transform.position, _roleToFollow.position, _speed * Time.deltaTime);
-           // }
+            }
             
         }
     }
@@ -105,11 +106,14 @@ public class RoleData : MonoBehaviour
             GameObject bulletObj = Instantiate(enemyBullet, spawnPoint.transform.position, spawnPoint.transform.rotation) as GameObject;
             Rigidbody bulletRig = bulletObj.GetComponent<Rigidbody>();
             bulletRig.AddForce(bulletRig.transform.forward * _shootspeed);
-            Destroy(bulletObj, 2);
+            Destroy(bulletObj, 5);
         
     }
 
-    
-    public string Name => _name;
-    public RoleType RoleType => _roleType;
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, _rangeOfAwareness);
+    }
+ 
 }
