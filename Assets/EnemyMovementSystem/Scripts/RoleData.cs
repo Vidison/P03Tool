@@ -6,7 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 using UnityEngine.AI;
 using Unity.VisualScripting;
 
-[CreateAssetMenu(fileName = "RoleData_", menuName = "UnitData/Role")]
+
 public class RoleData : MonoBehaviour
 {
 
@@ -21,7 +21,7 @@ public class RoleData : MonoBehaviour
     
     [Header("Movement")]
     [SerializeField] private float _speed;
-    [SerializeField] private float _rotationspeed;
+    [SerializeField] private float _rotationSpeed;
     public NavMeshAgent _follower;
 
 
@@ -31,7 +31,7 @@ public class RoleData : MonoBehaviour
     
     [SerializeField] private float timer = 5;
     private float bulletTime;
-    public float _shootspeed;
+    public float _shootSpeed;
 
     [Header("Dialog")]
     [SerializeField][TextArea()] private string _approach;
@@ -52,7 +52,7 @@ public class RoleData : MonoBehaviour
             if (moveDirection != Vector3.zero)
             {
                 Quaternion toRotate = Quaternion.LookRotation(moveDirection, Vector3.up);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotate, _rotationspeed * Time.deltaTime);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotate, _rotationSpeed * Time.deltaTime);
             }
         }
         if (_roleType == RoleType.Lancer)
@@ -105,7 +105,7 @@ public class RoleData : MonoBehaviour
          
             GameObject bulletObj = Instantiate(enemyBullet, spawnPoint.transform.position, spawnPoint.transform.rotation) as GameObject;
             Rigidbody bulletRig = bulletObj.GetComponent<Rigidbody>();
-            bulletRig.AddForce(bulletRig.transform.forward * _shootspeed);
+            bulletRig.AddForce(bulletRig.transform.forward * _shootSpeed);
             Destroy(bulletObj, 5);
         
     }
